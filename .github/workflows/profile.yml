@@ -1,0 +1,39 @@
+name: Refresh profile
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 3 * * *'
+  push:
+    paths:
+      - data/profile.json
+      - scripts/profile/**
+      - assets/icons/**
+      - .github/workflows/profile.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Refresh public download counts and SVGs
+        run: node scripts/profile/render.mjs --refresh
+      - name: Save updated profile assets
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/profile data/downloads.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Refresh profile downloads'
+            git push
+          fi

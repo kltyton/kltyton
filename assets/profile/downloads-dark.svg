@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="134" viewBox="0 0 840 134" fill="none" role="img" aria-label="CurseForge: 6,075,640 downloads across 18 projects, 2026-10-24."><style>:root{--ink:#f0f6fc;--muted:#9da7b3}text{font-family:'Segoe UI','Microsoft YaHei',system-ui,sans-serif;letter-spacing:0}.muted{fill:var(--muted)}.ink{fill:var(--ink)}.mono{font-family:Consolas,'Liberation Mono',monospace}@media(prefers-reduced-motion:reduce){*{animation:none!important}}</style><defs><linearGradient id="count"><stop stop-color="#f58b43"/><stop offset="1" stop-color="#e55b96"/></linearGradient></defs>
+<rect x=".5" y=".5" width="839" height="133" rx="8" fill="#161b22" stroke="#30363d"/>
+<path d="M18.326 9.2145S23.2261 8.4418 24 6.1882h-7.5066V4.4H0l2.0318 2.3576V9.173s5.1267-.2665 7.1098 1.2372c2.7146 2.516-3.053 5.917-3.053 5.917L5.0995 19.6c1.5465-1.4726 4.494-3.3775 9.8983-3.2857-2.0565.65-4.1245 1.6651-5.7344 3.2857h10.9248l-1.0288-3.2726s-7.918-4.6688-.8336-7.1127z" transform="translate(24 48) scale(2)" fill="#f16436"/>
+<text x="90" y="57" class="ink" font-size="18" font-weight="700">CurseForge</text>
+<text x="90" y="81" class="muted" font-size="13">18 个项目 · 总下载量</text>
+<text x="816" y="83" text-anchor="end" font-size="52" font-weight="800" fill="url(#count)">6,075,640</text>
+<text x="816" y="119" text-anchor="end" font-size="11" class="muted">2026-10-24 · CFWidget</text></svg>

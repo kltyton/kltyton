@@ -1,0 +1,48 @@
+{
+  "username": "kltyton",
+  "tagline": "Minecraft mods · Interfaces · Tools",
+  "description": "写 Minecraft 模组，也做 Windows 工具。",
+  "curseforge": {
+    "author": "kltyton",
+    "extraProjectIds": [1329174, 1015565, 1729620]
+  },
+  "groups": [
+    {
+      "title": "语言",
+      "subtitle": "LANGUAGES",
+      "color": "#fbbf24",
+      "items": [
+        { "name": "Java", "icon": "Java-Dark" },
+        { "name": "C#", "icon": "CS" },
+        { "name": "JavaScript", "icon": "JavaScript" },
+        { "name": "Python", "icon": "Python-Dark" },
+        { "name": "HTML", "icon": "HTML" },
+        { "name": "CSS", "icon": "CSS" }
+      ]
+    },
+    {
+      "title": "Minecraft 模组",
+      "subtitle": "MODDING",
+      "color": "#34d399",
+      "items": [
+        { "name": "Forge", "mark": "F", "color": "#6199be" },
+        { "name": "Fabric", "mark": "Fb", "color": "#ad946e" },
+        { "name": "NeoForge", "mark": "N", "color": "#ef8951" },
+        { "name": "Mixin", "mark": "@", "color": "#a78bfa" }
+      ]
+    },
+    {
+      "title": "工具与平台",
+      "subtitle": "TOOLING",
+      "color": "#38bdf8",
+      "items": [
+        { "name": "Gradle", "icon": "Gradle-Dark" },
+        { "name": ".NET", "icon": "DotNet" },
+        { "name": "Git", "icon": "Git" },
+        { "name": "GitHub Actions", "icon": "GithubActions-Dark" },
+        { "name": "PowerShell", "icon": "Powershell-Dark" },
+        { "name": "Blockbench", "mark": "Bb", "color": "#57a5dc" }
+      ]
+    }
+  ]
+}
