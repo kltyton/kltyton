@@ -1,15 +1,20 @@
 {
   "username": "kltyton",
-  "tagline": "Minecraft mods · Interfaces · Tools",
-  "description": "写 Minecraft 模组，也做 Windows 工具。",
+  "description": "好きに作る。",
+  "descriptionLines": ["好きに作る。"],
+  "modrinth": { "username": "kltyton", "id": "5xXPNMJb" },
+  "contexts": [
+    "minecraft / Java · Forge · Fabric · NeoForge",
+    "windows / C# · .NET · hardware tools",
+    "animation / JavaScript · Blockbench"
+  ],
   "curseforge": {
     "author": "kltyton",
     "extraProjectIds": [1329174, 1015565, 1729620]
   },
   "groups": [
     {
-      "title": "语言",
-      "subtitle": "LANGUAGES",
+      "title": "Languages",
       "color": "#fbbf24",
       "items": [
         { "name": "Java", "icon": "Java-Dark" },
@@ -21,19 +26,17 @@
       ]
     },
     {
-      "title": "Minecraft 模组",
-      "subtitle": "MODDING",
+      "title": "Minecraft",
       "color": "#34d399",
       "items": [
-        { "name": "Forge", "mark": "F", "color": "#6199be" },
-        { "name": "Fabric", "mark": "Fb", "color": "#ad946e" },
-        { "name": "NeoForge", "mark": "N", "color": "#ef8951" },
-        { "name": "Mixin", "mark": "@", "color": "#a78bfa" }
+        { "name": "Forge", "icon": "ForgeMC" },
+        { "name": "Fabric", "icon": "FabricMC" },
+        { "name": "NeoForge", "icon": "NeoForge" },
+        { "name": "Mixin", "icon": "Mixin" }
       ]
     },
     {
-      "title": "工具与平台",
-      "subtitle": "TOOLING",
+      "title": "Tools",
       "color": "#38bdf8",
       "items": [
         { "name": "Gradle", "icon": "Gradle-Dark" },
@@ -41,7 +44,7 @@
         { "name": "Git", "icon": "Git" },
         { "name": "GitHub Actions", "icon": "GithubActions-Dark" },
         { "name": "PowerShell", "icon": "Powershell-Dark" },
-        { "name": "Blockbench", "mark": "Bb", "color": "#57a5dc" }
+        { "name": "Blockbench", "icon": "Blockbench", "color": "#61b7ed", "inset": 10 }
       ]
     }
   ]
