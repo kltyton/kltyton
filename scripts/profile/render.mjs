@@ -69,7 +69,8 @@ async function main() {
   if (snapshot.modrinth.userId !== profile.modrinth.id) throw new Error('Modrinth snapshot account ID does not match.');
   const names = [...new Set([...profile.groups.flatMap(group => group.items.map(item => item.icon)), 'Modrinth'])];
   const icons = Object.fromEntries(await Promise.all(names.map(async name => [name, await readFile(new URL(`assets/icons/${name}.svg`, root), 'utf8')])));
-  const files = renderProfile(profile, snapshot, icons);
+  const backgrounds = Object.fromEntries(await Promise.all(['light', 'dark'].map(async theme => [theme, `data:image/webp;base64,${(await readFile(new URL(`assets/backgrounds/profile/${theme}.webp`, root))).toString('base64')}`])));
+  const files = renderProfile(profile, snapshot, icons, backgrounds);
   await mkdir(new URL('assets/profile/', root), { recursive: true });
   for (const [name, content] of files) await writeFile(new URL(`assets/profile/${name}`, root), content);
   if (refresh) await writeFile(new URL('data/downloads.json', root), `${JSON.stringify(snapshot, null, 2)}\n`);
