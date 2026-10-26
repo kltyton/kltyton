@@ -1,36 +1,5 @@
-MIT License
+Technology pictograms: custom vector artwork.
 
-Copyright (c) 2022 tandpfun
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-Icons: https://github.com/tandpfun/skill-icons
-Source: 7f7e691e71aec64e8354bf697835e009d1ad80f8
-CurseForge, Modrinth and Blockbench marks: Simple Icons, CC0-1.0.
+CurseForge and Modrinth platform marks: Simple Icons, CC0-1.0.
 https://github.com/simple-icons/simple-icons
-Modrinth and Blockbench source: 90646e4bf7f3b89df6c37e65baf3e7bc759a517c
-
-FabricMC, ForgeMC and NeoForge icons: https://github.com/LelouchFR/skill-icons
-Source: 1c213fac65db5decb58aaa7f41db28effcb26df4
-MIT License. Copyright 2024 Baptiste Zahnow.
-The permission grant and warranty disclaimer above apply to these icons.
-
-Mixin mark: https://github.com/SpongePowered/Mixin
-Source: 4053421aa10aaac6127d969028a29c94fe3054f6, docs/javadoc/resources/logo.png
-MIT License. The permission grant and warranty disclaimer above apply.
+Modrinth source: 90646e4bf7f3b89df6c37e65baf3e7bc759a517c
