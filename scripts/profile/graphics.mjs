@@ -66,51 +66,100 @@ function sourceIcon(source, prefix, color = '#fff', inset = 0) {
   return `<svg x="${inset}" y="${inset}" width="${64 - inset * 2}" height="${64 - inset * 2}" viewBox="${viewBox}" fill="${color}">${body}</svg>`;
 }
 
-function tile(item, source, prefix, x, y, index, palette) {
-  const face = sourceIcon(source, prefix, item.color, item.inset);
-  return `<g transform="translate(${x} ${y})"><g class="tile" style="animation-delay:-${index * .31}s">
-<defs><clipPath id="${prefix}-clip"><rect width="64" height="64" rx="8"/></clipPath></defs>
-<rect width="64" height="64" rx="8" fill="${palette.tile}"/>
-<g clip-path="url(#${prefix}-clip)">${face}<rect width="64" height="64" fill="url(#gloss)"/><path class="shine" style="animation-delay:-${index * .37}s" d="M-44 -14L-10 -14L94 90L60 90Z" fill="url(#tile-shine)"/></g>
-<rect x=".5" y=".5" width="63" height="63" rx="7.5" stroke="#fff" stroke-opacity=".18"/>
-<rect class="rim" style="animation-delay:-${index * .53}s" x=".5" y=".5" width="63" height="63" rx="7.5" stroke="url(#tile-rim)" stroke-width="1" pathLength="100" stroke-dasharray="16 84"/>
-</g></g>`;
+const METAL = {
+  dark: { face: '#202326', chassis: '#090b0c', top: '#828e91', middle: '#31383b', bottom: '#15191b', bright: '#e2eceb', seam: '#465052', grain: '#bed0d2', shade: '#050809', reflection: '.14' },
+  light: { face: '#e9eff0', chassis: '#98a8ad', top: '#ffffff', middle: '#c2d0d4', bottom: '#a6b5ba', bright: '#ffffff', seam: '#83979e', grain: '#596f77', shade: '#455a62', reflection: '.18' },
+};
+
+function cutPath(x, y, width, height, cut = 14) {
+  return `M${x + cut} ${y}H${x + width - cut}L${x + width} ${y + cut}V${y + height - cut}L${x + width - cut} ${y + height}H${x + cut}L${x} ${y + height - cut}V${y + cut}Z`;
+}
+
+function metalDefinitions(theme, width) {
+  const metal = METAL[theme];
+  return `<linearGradient id="metal-face" x1="0" y1="0" x2=".25" y2="1"><stop stop-color="${metal.face}"/><stop offset=".48" stop-color="${metal.middle}"/><stop offset="1" stop-color="${metal.face}"/></linearGradient>
+<linearGradient id="metal-chrome" x1="0" y1="0" x2=".1" y2="1"><stop stop-color="${metal.bright}"/><stop offset=".12" stop-color="${metal.top}"/><stop offset=".35" stop-color="${metal.middle}"/><stop offset=".51" stop-color="${metal.bright}"/><stop offset=".58" stop-color="${metal.bottom}"/><stop offset="1" stop-color="${metal.top}"/></linearGradient>
+<linearGradient id="metal-glare"><stop stop-color="#fff" stop-opacity="0"/><stop offset=".38" stop-color="#8bf4ee" stop-opacity=".08"/><stop offset=".48" stop-color="#fff" stop-opacity=".36"/><stop offset=".53" stop-color="#f4a9d0" stop-opacity=".2"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="metal-scan" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#81f4e6" stop-opacity="0"/><stop offset=".85" stop-color="#81f4e6" stop-opacity=".08"/><stop offset="1" stop-color="#e8fff9" stop-opacity=".3"/></linearGradient>
+<pattern id="metal-grain" width="12" height="4" patternUnits="userSpaceOnUse"><path d="M0 .5H12M3 2.5H8" stroke="${metal.grain}" stroke-opacity=".065" stroke-width=".5"/></pattern>
+<pattern id="metal-raster" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 .5H6" stroke="${metal.grain}" stroke-opacity=".08" stroke-width=".5"/></pattern>
+<filter id="metal-shadow" x="-50%" y="-50%" width="200%" height="220%"><feDropShadow dx="0" dy="7" stdDeviation="4" flood-color="${metal.shade}" flood-opacity=".6"/></filter>
+${prism('metal-foil', width)}${prism('mount-foil', 96)}`;
+}
+
+function metalPanel(width, height, prefix, theme, accent, band = false) {
+  const metal = METAL[theme];
+  const face = cutPath(0, 0, width, height - 10);
+  return `<defs><clipPath id="${prefix}-face"><path d="${face}"/></clipPath></defs>
+<path d="${cutPath(0, 7, width, height - 7)}" fill="${metal.chassis}"/>
+<path d="${face}" fill="url(#metal-face)"/>
+<g clip-path="url(#${prefix}-face)">
+<path d="M${width * .45} -30L${width * .72} -30L${width * .43} ${height + 30}L${width * .17} ${height + 30}Z" fill="url(#metal-foil)" opacity="${metal.reflection}"/>
+<rect width="${width}" height="${height}" fill="url(#metal-grain)"/>
+<path class="m-sweep" d="M-400 -40H-290L-40 ${height + 40}H-150Z" fill="url(#metal-glare)"/>
+<rect class="m-scan" y="-48" width="${width}" height="48" fill="url(#metal-scan)" style="--scan-distance:${height + 70}px"/>
+<path d="M${width - 180} 0H${width - 144}L${width - 28} ${height}H${width - 64}Z" fill="${accent}" opacity=".045"/>
+</g>
+${band ? '' : `<path d="${face}" stroke="url(#metal-chrome)" stroke-width="1"/>`}
+<path d="M15 1H${width - 15}M1 15V${height - 26}M15 ${height - 10}H${width - 15}" stroke="url(#metal-chrome)" stroke-width="1"/>
+<path d="M16 ${height - 5}H${width - 16}" stroke="${metal.seam}" stroke-width="1"/>
+<path class="m-tracer" d="M24 1H${width - 24}" stroke="url(#metal-foil)" stroke-width="1.4" pathLength="100" stroke-dasharray="12 88"/>
+<path d="M${width - 50} ${height - 17}L${width - 44} ${height - 23}M${width - 40} ${height - 17}L${width - 34} ${height - 23}M${width - 30} ${height - 17}L${width - 24} ${height - 23}" stroke="${metal.top}" stroke-width="2"/>`;
+}
+
+function metalCSS(width) {
+  return `.m-sweep{animation:m-sweep 8.4s cubic-bezier(.4,0,.2,1) infinite;animation-delay:var(--section-phase,0s)}.m-scan{animation:m-scan 9s linear infinite;animation-delay:calc(var(--section-phase,0s) - 2s)}.m-tracer{animation:m-tracer 10s linear infinite;animation-delay:var(--section-phase,0s)}.m-float{transform-origin:48px 40px;animation:m-float 6.2s ease-in-out infinite}.m-shadow{transform-origin:48px 74px;animation:m-shadow 6.2s ease-in-out infinite}.m-lens{animation:m-lens 6.8s ease-in-out infinite}.m-watermark{animation:m-watermark 12s ease-in-out infinite alternate}@keyframes m-sweep{0%,12%{transform:translateX(0)}56%,100%{transform:translateX(${width + 650}px)}}@keyframes m-scan{0%,60%{transform:translateY(0);opacity:0}64%{opacity:1}88%,100%{transform:translateY(var(--scan-distance));opacity:0}}@keyframes m-tracer{to{stroke-dashoffset:-100}}@keyframes m-float{0%,100%{transform:translateY(-6px) rotate(-3deg)}50%{transform:translateY(-13px) rotate(3deg)}}@keyframes m-shadow{0%,100%{transform:scaleX(1);opacity:.42}50%{transform:scaleX(.72);opacity:.2}}@keyframes m-lens{0%,18%{transform:translateX(-100px)}58%,100%{transform:translateX(120px)}}@keyframes m-watermark{to{transform:translate(-10px,7px)}}`;
+}
+
+function tile(item, source, prefix, index, theme) {
+  const metal = METAL[theme];
+  const phase = -index * .43;
+  return `<path d="M7 66H76L91 76H22Z" fill="url(#metal-chrome)"/>
+<path d="M22 76H91V84H22Z" fill="${metal.bottom}"/><path d="M7 66L22 76V84L7 74Z" fill="${metal.top}"/>
+<path d="M24 77H86" stroke="url(#mount-foil)" stroke-width="1.5"/>
+<path class="m-shadow" style="animation-delay:${phase}s" d="M18 69H75L84 75H27Z" fill="${metal.shade}"/>
+<g class="m-float" style="animation-delay:${phase}s" filter="url(#metal-shadow)">
+<path d="${cutPath(10, 4, 76, 72, 10)}" fill="${metal.chassis}"/>
+<path d="${cutPath(10, -2, 76, 72, 10)}" fill="url(#metal-chrome)"/>
+<defs><clipPath id="${prefix}-lens"><path d="${cutPath(16, 4, 64, 60, 6)}"/></clipPath></defs>
+<g clip-path="url(#${prefix}-lens)"><g transform="translate(16 2)">${sourceIcon(source, prefix, item.color, item.inset)}</g>
+<path d="M16 4H80V28L16 51Z" fill="url(#mount-foil)" opacity=".13"/>
+<path class="m-lens" style="animation-delay:${-index * .57}s" d="M-26 -10H-10L90 80H74Z" fill="url(#metal-glare)"/></g>
+<path d="M20 1H73L83 11M13 16V54" stroke="${metal.bright}" stroke-opacity=".5" stroke-width=".8"/>
+<path d="M20 66H75" stroke="url(#mount-foil)" stroke-width="1.2"/>
+</g>`;
 }
 
 function stack(profile, icons, theme, mobile) {
   const palette = PALETTES[theme];
   const width = mobile ? 420 : 840;
+  const rowHeight = 116;
   let top = 0;
   let body = '';
   let index = 0;
   for (const [groupIndex, group] of profile.groups.entries()) {
     const columns = mobile ? (group.items.length === 4 ? 4 : 3) : group.items.length;
-    const rows = Math.ceil(group.items.length / columns);
-    const rowHeight = 104;
-    const height = 52 + rows * rowHeight;
-    const cell = (width - 48) / columns;
-    body += `<rect y="${top}" width="${width}" height="${height}" fill="url(#surface)"/>
-<text x="24" y="${top + 29}" fill="${palette.ink}" font-size="18" font-weight="700">${xml(group.title)}</text>
-<path d="M${width - 118} ${top + 24}H${width - 24}" stroke="${palette.accent[groupIndex]}" stroke-opacity=".22"/>
-<path d="M0 ${top + height - .5}H${width}" stroke="${palette.line}"/>`;
+    const height = 64 + Math.ceil(group.items.length / columns) * rowHeight;
+    const cell = (width - 40) / columns;
+    const prefix = `section${groupIndex}`;
+    body += `<g transform="translate(0 ${top})" style="--section-phase:-${groupIndex * 1.7}s">${metalPanel(width, height, prefix, theme, group.color, true)}
+<path d="M22 25L29 18H42M22 25V35" stroke="url(#metal-chrome)" stroke-width="1"/>
+<text x="38" y="34" fill="${palette.ink}" font-size="20" font-weight="700">${xml(group.title)}</text>
+<path d="M${width - 129} 25H${width - 32}" stroke="${METAL[theme].seam}" stroke-width="1"/>
+<path d="M${width - 120} 21L${width - 110} 29M${width - 103} 21L${width - 93} 29M${width - 86} 21L${width - 76} 29" stroke="url(#metal-foil)" stroke-opacity=".7" stroke-width="1"/>`;
     for (const [itemIndex, item] of group.items.entries()) {
-      const center = 24 + (itemIndex % columns) * cell + cell / 2;
-      const y = top + 49 + Math.floor(itemIndex / columns) * rowHeight;
-      const size = mobile ? 58 : 64;
-      const source = item.icon ? icons[item.icon] : undefined;
-      const prefix = `g${groupIndex}i${itemIndex}`;
-      body += `<g transform="translate(${center - size / 2} ${y}) scale(${size / 64})">${tile(item, source, prefix, 0, 0, index++, palette)}</g>`;
+      const center = 20 + (itemIndex % columns) * cell + cell / 2;
+      const y = 57 + Math.floor(itemIndex / columns) * rowHeight;
+      const size = mobile ? (columns === 4 ? 70 : 80) : 88;
+      body += `<g transform="translate(${center - size / 2} ${y}) scale(${size / 96})">${tile(item, icons[item.icon], `g${groupIndex}i${itemIndex}`, index++, theme)}</g>`;
       const lines = mobile && item.name === 'GitHub Actions' ? ['GitHub', 'Actions'] : [item.name];
-      body += `<text x="${center}" y="${y + size + 21}" text-anchor="middle" font-size="${mobile ? 14 : 13}" font-weight="600" fill="${palette.ink}">${lines.map((line, lineIndex) => `<tspan x="${center}" dy="${lineIndex ? 16 : 0}">${xml(line)}</tspan>`).join('')}</text>`;
+      const textY = y + size + 11;
+      body += `<text x="${center}" y="${textY}" text-anchor="middle" font-size="${mobile ? 14 : 13}" font-weight="600" fill="${palette.ink}">${lines.map((line, lineIndex) => `<tspan x="${center}" dy="${lineIndex ? 16 : 0}">${xml(line)}</tspan>`).join('')}</text>`;
     }
-    top += height + 12;
+    body += '</g>';
+    top += height + 16;
   }
-  const definitions = `<linearGradient id="surface" x1="0" x2="1" y2=".65"><stop stop-color="${palette.surface}"/><stop offset="1" stop-color="${palette.surfaceEnd}"/></linearGradient>
-<linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff" stop-opacity="${palette.gloss}"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".13"/></linearGradient>
-<linearGradient id="tile-shine"><stop stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
-${prism('tile-rim', 64)}`;
-  const css = '.tile{transform-box:fill-box;transform-origin:center;animation:lift 5s ease-in-out infinite;filter:drop-shadow(0 5px 5px #0003)}.shine{animation:shine 5.4s ease-in-out infinite}.rim{animation:rim 9s linear infinite}@keyframes lift{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}@keyframes shine{0%,12%{transform:translateX(-96px)}42%,100%{transform:translateX(96px)}}@keyframes rim{to{stroke-dashoffset:-100}}';
-  return image(width, top - 12, profile.groups.map(group => `${group.title}: ${group.items.map(item => item.name).join(', ')}`).join('; '), body, definitions, css);
+  return image(width, top - 16, profile.groups.map(group => `${group.title}: ${group.items.map(item => item.name).join(', ')}`).join('; '), body, metalDefinitions(theme, width), metalCSS(width));
 }
 
 function rollingNumber(total, right, baseline, size) {
@@ -143,30 +192,32 @@ function rollingNumber(total, right, baseline, size) {
 function downloads(snapshot, theme, mobile, platform, icons) {
   const palette = PALETTES[theme];
   const width = mobile ? 420 : 840;
-  const height = mobile ? 214 : 166;
+  const height = mobile ? 252 : 192;
   const size = mobile ? 50 : 64;
-  const baseline = mobile ? 147 : 112;
+  const baseline = mobile ? 174 : 116;
   const isModrinth = platform === 'Modrinth';
-  const accent = isModrinth ? '#1bd96a' : '#ff7847';
-  const countStart = isModrinth ? (theme === 'dark' ? '#63ed99' : '#087744') : (theme === 'dark' ? '#ff9f50' : '#ba4219');
-  const countEnd = isModrinth ? (theme === 'dark' ? '#4ed6e6' : '#087487') : (theme === 'dark' ? '#ff75b1' : '#b42777');
+  const accent = isModrinth ? '#36dc99' : '#ff986a';
+  const countStart = isModrinth ? (theme === 'dark' ? '#9ef3b5' : '#087744') : (theme === 'dark' ? '#ffd08a' : '#aa3c2b');
+  const countEnd = isModrinth ? (theme === 'dark' ? '#58dddc' : '#087487') : (theme === 'dark' ? '#ff91c6' : '#ac2866');
   const counterWidth = [...number(snapshot.total)].reduce((sum, character) => sum + size * (character === ',' ? .28 : .64), 0);
-  const counter = rollingNumber(snapshot.total, mobile ? (width + counterWidth) / 2 : width - 28, baseline, size);
-  const brandX = mobile ? 100 : 114;
-  const brandY = mobile ? 49 : 72;
+  const counter = rollingNumber(snapshot.total, mobile ? (width + counterWidth) / 2 : width - 32, baseline, size);
+  const brandX = mobile ? 112 : 120;
+  const brandY = mobile ? 54 : 65;
   const forge = 'M18.326 9.2145S23.2261 8.4418 24 6.1882h-7.5066V4.4H0l2.0318 2.3576V9.173s5.1267-.2665 7.1098 1.2372c2.7146 2.516-3.053 5.917-3.053 5.917L5.0995 19.6c1.5465-1.4726 4.494-3.3775 9.8983-3.2857-2.0565.65-4.1245 1.6651-5.7344 3.2857h10.9248l-1.0288-3.2726s-7.918-4.6688-.8336-7.1127z';
-  const definitions = `<linearGradient id="surface" x1="0" x2="1" y2=".5"><stop stop-color="${palette.surface}"/><stop offset="1" stop-color="${palette.surfaceEnd}"/></linearGradient><linearGradient id="count"><stop stop-color="${countStart}"/><stop offset="1" stop-color="${countEnd}"/></linearGradient>${prism('rim', width)}${counter.clip}<clipPath id="card"><rect width="${width}" height="${height}" rx="8"/></clipPath>`;
-  const body = `<rect width="${width}" height="${height}" rx="8" fill="url(#surface)"/>
-<g clip-path="url(#card)"><path class="trace" d="M-80 ${height}L120 -40M540 220L800 -40" stroke="url(#rim)" stroke-width="28" stroke-opacity=".035"/></g>
-<rect x="24" y="${mobile ? 24 : 45}" width="64" height="64" rx="8" fill="${palette.tile}" stroke="${accent}" stroke-opacity=".35"/>
-${isModrinth ? `<g transform="translate(24 ${mobile ? 24 : 45})">${sourceIcon(icons.Modrinth, 'modrinth-mark', accent, 10)}</g>` : `<path d="${forge}" transform="translate(32 ${mobile ? 36 : 57}) scale(2)" fill="${accent}"/>`}
-<text x="${brandX}" y="${brandY}" font-size="21" font-weight="700" fill="${palette.ink}">${platform}</text>
+  const mark = isModrinth ? sourceIcon(icons.Modrinth, 'platform-mark', accent, 5) : `<path d="${forge}" transform="translate(1 10) scale(2.6)" fill="${accent}"/>`;
+  const definitions = `${metalDefinitions(theme, width)}<linearGradient id="count"><stop stop-color="${countStart}"/><stop offset="1" stop-color="${countEnd}"/></linearGradient>${counter.clip}`;
+  const body = `<g style="--section-phase:${isModrinth ? '-3.4s' : '-.7s'}">${metalPanel(width, height, 'platform', theme, accent)}
+<g clip-path="url(#platform-face)">
+<g transform="translate(${width - 195} -34) scale(3.8)"><g class="m-watermark" opacity="${theme === 'dark' ? '.055' : '.07'}">${mark}</g></g>
+<path d="M${mobile ? 24 : 475} ${mobile ? 110 : 48}H${width - 27}V${height - 56}H${mobile ? 24 : 475}Z" fill="url(#metal-raster)"/>
+</g>
+<g transform="translate(30 ${mobile ? 24 : 38})">${mark}</g>
+<text x="${brandX}" y="${brandY}" font-size="23" font-weight="700" fill="${palette.ink}">${platform}</text>
 <text x="${brandX}" y="${brandY + 25}" font-size="${mobile ? 12 : 13}" fill="${palette.muted}">${snapshot.projects.length} projects · total downloads</text>
 ${counter.body}
-<text x="${width - 24}" y="${height - 15}" text-anchor="end" font-size="11" fill="${palette.muted}">${snapshot.updatedAt} · ${isModrinth ? 'Modrinth API' : 'CFWidget'}</text>
-<rect x=".5" y=".5" width="${width - 1}" height="${height - 1}" rx="8" stroke="${palette.line}"/>
-${edge(width, height, 'url(#rim)')}`;
-  const css = `.count{font-family:${FONT};font-variant-numeric:tabular-nums;font-size:${size}px;font-weight:800;fill:url(#count)}.edge{animation:edge 11s linear infinite}.trace{animation:trace 15s ease-in-out infinite alternate}@keyframes edge{to{stroke-dashoffset:-100}}@keyframes trace{to{transform:translateX(60px)}}${counter.rules}`;
+<path d="M24 ${height - 48}H${width - 24}" stroke="${METAL[theme].seam}" stroke-opacity=".55" stroke-width=".7"/>
+<text x="${width - 28}" y="${height - 27}" text-anchor="end" font-size="11" fill="${palette.muted}">${snapshot.updatedAt} · ${isModrinth ? 'Modrinth API' : 'CFWidget'}</text></g>`;
+  const css = `${metalCSS(width)}.count{font-family:${FONT};font-variant-numeric:tabular-nums;font-size:${size}px;font-weight:800;fill:url(#count)}${counter.rules}`;
   return image(width, height, `${platform}: ${number(snapshot.total)} downloads, ${snapshot.projects.length} projects. Updated ${snapshot.updatedAt}.`, body, definitions, css);
 }
 
