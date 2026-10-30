@@ -1,8 +1,8 @@
 {
   "curseforge": {
     "author": "kltyton",
-    "updatedAt": "2026-10-29",
-    "total": 6161472,
+    "updatedAt": "2026-10-30",
+    "total": 6172562,
     "projects": [
       {
         "id": 1015565,
@@ -19,97 +19,97 @@
       {
         "id": 1147454,
         "title": "Stardew Fishing Fabric",
-        "downloads": 100261,
+        "downloads": 100317,
         "source": "https://api.cfwidget.com/1147454"
       },
       {
         "id": 1151978,
         "title": "Polymorphic Tom's Simple Storag",
-        "downloads": 2440433,
+        "downloads": 2445935,
         "source": "https://api.cfwidget.com/1151978"
       },
       {
         "id": 1152132,
         "title": "Polymorphic Traveler's Backpack",
-        "downloads": 78326,
+        "downloads": 78335,
         "source": "https://api.cfwidget.com/1152132"
       },
       {
         "id": 1267398,
         "title": "Create: Aether Industry",
-        "downloads": 75558,
+        "downloads": 75586,
         "source": "https://api.cfwidget.com/1267398"
       },
       {
         "id": 1327535,
         "title": "Only One Item",
-        "downloads": 82306,
+        "downloads": 82501,
         "source": "https://api.cfwidget.com/1327535"
       },
       {
         "id": 1329174,
         "title": "Clean Connected Glass(DiagonalWindows Patch)",
-        "downloads": 4482,
+        "downloads": 4496,
         "source": "https://api.cfwidget.com/1329174"
       },
       {
         "id": 1362297,
         "title": "CosmeticArmorCompatibility",
-        "downloads": 69886,
+        "downloads": 70090,
         "source": "https://api.cfwidget.com/1362297"
       },
       {
         "id": 1388941,
         "title": "LightSpeedRe - Launch optimizations",
-        "downloads": 3293801,
+        "downloads": 3298716,
         "source": "https://api.cfwidget.com/1388941"
       },
       {
         "id": 1586891,
         "title": "Player Animation Library More Rotation",
-        "downloads": 8989,
+        "downloads": 9087,
         "source": "https://api.cfwidget.com/1586891"
       },
       {
         "id": 1607072,
         "title": "Visual Creative Tab Editor",
-        "downloads": 1648,
+        "downloads": 1658,
         "source": "https://api.cfwidget.com/1607072"
       },
       {
         "id": 1640105,
         "title": "Auto Seam Blend",
-        "downloads": 1415,
+        "downloads": 1419,
         "source": "https://api.cfwidget.com/1640105"
       },
       {
         "id": 1666056,
         "title": "Darwin Soldier",
-        "downloads": 376,
+        "downloads": 381,
         "source": "https://api.cfwidget.com/1666056"
       },
       {
         "id": 1698729,
         "title": "BoneHitboxLib",
-        "downloads": 257,
+        "downloads": 258,
         "source": "https://api.cfwidget.com/1698729"
       },
       {
         "id": 1711611,
         "title": "Tick Weave",
-        "downloads": 1946,
+        "downloads": 1974,
         "source": "https://api.cfwidget.com/1711611"
       },
       {
         "id": 1729620,
         "title": "EarthView",
-        "downloads": 626,
+        "downloads": 636,
         "source": "https://api.cfwidget.com/1729620"
       },
       {
         "id": 1753629,
         "title": "Command Translation",
-        "downloads": 897,
+        "downloads": 908,
         "source": "https://api.cfwidget.com/1753629"
       }
     ]
@@ -117,37 +117,37 @@
   "modrinth": {
     "author": "kltyton",
     "userId": "5xXPNMJb",
-    "updatedAt": "2026-10-29",
-    "total": 4940090,
+    "updatedAt": "2026-10-30",
+    "total": 4949596,
     "projects": [
       {
         "id": "1UjQ96Vt",
         "title": "CosmeticArmorCompatibility",
-        "downloads": 261814,
+        "downloads": 262351,
         "source": "https://api.modrinth.com/v2/project/1UjQ96Vt"
       },
       {
         "id": "9wJhd9x6",
         "title": "Stardew Fishing Fabric",
-        "downloads": 38294,
+        "downloads": 38385,
         "source": "https://api.modrinth.com/v2/project/9wJhd9x6"
       },
       {
         "id": "btzikw7u",
         "title": "Clean Connected Glass(DiagonalWindows Patch)",
-        "downloads": 3008,
+        "downloads": 3014,
         "source": "https://api.modrinth.com/v2/project/btzikw7u"
       },
       {
         "id": "eE6ekVVn",
         "title": "EntitySpawnEgg",
-        "downloads": 832,
+        "downloads": 833,
         "source": "https://api.modrinth.com/v2/project/eE6ekVVn"
       },
       {
         "id": "EFiuYtsc",
         "title": "Only One Item",
-        "downloads": 892230,
+        "downloads": 892952,
         "source": "https://api.modrinth.com/v2/project/EFiuYtsc"
       },
       {
@@ -159,37 +159,37 @@
       {
         "id": "kdPyFGUG",
         "title": "Eugene's Whistle & Spur",
-        "downloads": 158007,
+        "downloads": 158076,
         "source": "https://api.modrinth.com/v2/project/kdPyFGUG"
       },
       {
         "id": "lgaejLU2",
         "title": "Polymorphic Tom's Simple Storag",
-        "downloads": 1964261,
+        "downloads": 1966320,
         "source": "https://api.modrinth.com/v2/project/lgaejLU2"
       },
       {
         "id": "niZHUKxZ",
         "title": "LightSpeedRe",
-        "downloads": 1605824,
+        "downloads": 1611699,
         "source": "https://api.modrinth.com/v2/project/niZHUKxZ"
       },
       {
         "id": "T7RS2PHh",
         "title": "Polymorphic Traveler's Backpack",
-        "downloads": 5921,
+        "downloads": 5924,
         "source": "https://api.modrinth.com/v2/project/T7RS2PHh"
       },
       {
         "id": "wPBs7ljG",
         "title": "Player Animation Library More Rotation",
-        "downloads": 7485,
+        "downloads": 7606,
         "source": "https://api.modrinth.com/v2/project/wPBs7ljG"
       },
       {
         "id": "wyfx33ZJ",
         "title": "Visual Creative Tab Editor",
-        "downloads": 2058,
+        "downloads": 2080,
         "source": "https://api.modrinth.com/v2/project/wyfx33ZJ"
       }
     ]
